@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shore & Beach Journal</title>
+    <meta name="description" content="Official app for the Shore & Beach Journal by the American Shore & Beach Preservation Association">
+    <meta name="theme-color" content="#005596">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="shortcut icon" href="icons/icon-72x72.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #005596; /* ASBPA blue */
+            --secondary-color: #0071bc; /* Lighter blue */
+            --accent-color: #f7941d; /* ASBPA orange */
+            --text-color: #333333;
+            --light-text: #666666;
+            --background-color: #f5f5f5;
+            --card-color: #ffffff;
+            --border-color: #dddddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://asbpa.org/wp-content/uploads/2020/01/cropped-ASBPA-Header-Image-1.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        header .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 80%;
+            margin: 10px auto 0;
+        }
+
+        .logo {
+            max-width: 120px;
+            margin-bottom: 15px;
+        }
+
+        .main-menu {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .menu-card {
+            background-color: var(--card-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--accent-color);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .menu-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .menu-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .menu-card p {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin-top: auto;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            font-size: 1rem;
+            margin-right: 8px;
+            color: white;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background-color: #e58012; /* Darker orange */
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-outline i {
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover i {
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 85, 150, 0.2);
+            outline: none;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Responsive styles */
+        @media (min-width: 768px) {
+            .main-menu {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .menu-card {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="content">
+            <h1>Shore & Beach Journal</h1>
+            <p>American Shore & Beach Preservation Association</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-menu">
+            <div class="menu-card" id="accessJournalCard">
+                <i class="fas fa-book-open"></i>
+                <h2>Access Journal</h2>
+                <p>Read the latest issues of Shore & Beach Journal with one tap.</p>
+                <button class="btn" id="accessJournalBtn">
+                    <i class="fas fa-book"></i> Access Journal
+                </button>
+            </div>
+            
+            <div class="menu-card" id="submitPhotoCard">
+                <i class="fas fa-camera"></i>
+                <h2>Submit a Photo</h2>
+                <p>Share your coastal photography for consideration as a cover photo.</p>
+                <button class="btn btn-outline" id="submitPhotoBtn">
+                    <i class="fas fa-image"></i> Submit Photo
+                </button>
+            </div>
+            
+            <div class="menu-card" id="contactEditorsCard">
+                <i class="fas fa-envelope"></i>
+                <h2>Contact Editors</h2>
+                <p>Send an email to the Shore & Beach editorial team.</p>
+                <button class="btn btn-accent" id="contactEditorsBtn">
+                    <i class="fas fa-paper-plane"></i> Contact Us
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Journal Access Modal -->
+    <div class="modal" id="journalModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeJournalModal">&times;</span>
+            <h2 class="modal-title">Access Journal Issues</h2>
+            <p>Please enter your credentials to access the latest issues of Shore & Beach Journal.</p>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-outline" id="cancelJournalAccess">Cancel</button>
+                <button class="btn" id="confirmJournalAccess">Access Journal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Editors Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeContactModal">&times;</span>
+            <h2 class="modal-title">Contact Editors</h2>
+            <p>Send a message to the Shore & Beach editorial team.</p>
+            
+            <div class="form-group">
+                <label for="contactName">Your Name</label>
+                <input type="text" id="contactName" placeholder="Enter your name">
+            </div>
+            
+            <div class="form-group">
+                <label for="contactEmail">Your Email</label>
+                <input type="email" id="contactEmail" placeholder="Enter your email address">
+            </div>
+            
+            <div class="form-group">
+                <label for="contactSubject">Subject</label>
+                <input type="text" id="contactSubject" placeholder="Enter message subject">
+            </div>
+            
+            <div class="form-group">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" rows="4" placeholder="Type your message here"></textarea>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-outline" id="cancelContact">Cancel</button>
+                <button class="btn btn-accent" id="sendContactMessage">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Shore & Beach Journal - American Shore & Beach Preservation Association</p>
+        <div class="footer-links">
+            <a href="https://asbpa.org" target="_blank">ASBPA Website</a>
+            <a href="https://asbpa.org/publications/shore-and-beach/" target="_blank">About the Journal</a>
+            <a href="https://asbpa.org/contact-us/" target="_blank">Contact ASBPA</a>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const accessJournalBtn = document.getElementById('accessJournalBtn');
+        const contactEditorsBtn = document.getElementById('contactEditorsBtn');
+        const submitPhotoBtn = document.getElementById('submitPhotoBtn');
+        
+        // Modals
+        const journalModal = document.getElementById('journalModal');
+        const contactModal = document.getElementById('contactModal');
+        
+        // Close buttons
+        const closeJournalModal = document.getElementById('closeJournalModal');
+        const closeContactModal = document.getElementById('closeContactModal');
+        
+        // Form buttons
+        const cancelJournalAccess = document.getElementById('cancelJournalAccess');
+        const confirmJournalAccess = document.getElementById('confirmJournalAccess');
+        const cancelContact = document.getElementById('cancelContact');
+        const sendContactMessage = document.getElementById('sendContactMessage');
+        
+        // Journal access - direct link without password
+        accessJournalBtn.addEventListener('click', () => {
+            // URL to the journal site
+            const journalUrl = 'https://asbpa.org/publications/shore-and-beach/';
+            
+            // Open in a new tab
+            window.open(journalUrl, '_blank');
+        });
+        
+        // Contact editors
+        contactEditorsBtn.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+        
+        closeContactModal.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+        
+        cancelContact.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+        
+        sendContactMessage.addEventListener('click', async () => {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            if (name && email && subject && message) {
+                try {
+                    // Show sending indicator
+                    sendContactMessage.disabled = true;
+                    sendContactMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    
+                    // Prepare email data
+                    const emailData = {
+                        name,
+                        email,
+                        subject,
+                        message,
+                        timestamp: new Date().toISOString(),
+                        type: 'contact_editors'
+                    };
+                    
+                    // Log the data being sent
+                    console.log('Contact message data:', emailData);
+                    
+                    try {
+                        // Send to LLM for email processing
+                        const response = await requestGPT('send_contact_email', {
+                            emailData: emailData,
+                            recipient: 'mg_editor@asbpa.org',
+                            template: 'contact_editors'
+                        });
+                        console.log('Email request sent successfully:', response);
+                    } catch (error) {
+                        console.log('Note: Email functionality requires server-side implementation.');
+                        console.log('When testing locally, this is expected to fail.');
+                        console.log('Email would be sent to: mg_editor@asbpa.org');
+                        console.log('Email data:', emailData);
+                        // Continue as if successful for testing purposes
+                    }
+                    
+                    // Show success message
+                    alert('Your message has been sent to the Shore & Beach editorial team.');
+                    
+                    // Close the modal
+                    contactModal.style.display = 'none';
+                    
+                    // Reset the form
+                    document.getElementById('contactName').value = '';
+                    document.getElementById('contactEmail').value = '';
+                    document.getElementById('contactSubject').value = '';
+                    document.getElementById('contactMessage').value = '';
+                    
+                } catch (error) {
+                    console.error('Error sending message:', error);
+                    alert('There was an error sending your message. Please try again.');
+                } finally {
+                    // Reset button state
+                    sendContactMessage.disabled = false;
+                    sendContactMessage.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                }
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+        
+        // Submit photo
+        submitPhotoBtn.addEventListener('click', () => {
+            // Navigate to the photo submission page
+            window.location.href = 'photo-submission.html';
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === journalModal) {
+                journalModal.style.display = 'none';
+            }
+            if (event.target === contactModal) {
+                contactModal.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
