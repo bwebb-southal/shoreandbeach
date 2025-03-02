@@ -1,0 +1,75 @@
+# Shore & Beach Journal Web App
+
+This is the official web app for the Shore & Beach Journal by the American Shore & Beach Preservation Association (ASBPA).
+
+## Features
+
+- Access the latest issues of Shore & Beach Journal
+- Submit photos for consideration as cover photos
+- Contact the editorial team
+
+## Installation and Deployment
+
+### Prerequisites
+
+- Web hosting service (GitHub Pages, ASBPA hosting, etc.)
+- Basic knowledge of HTML/CSS/JavaScript
+- Image editing software for creating app icons (if needed)
+
+### Deployment Steps
+
+#### For GitHub Pages:
+
+1. Create a new GitHub repository
+2. Upload all the files from this project to the repository
+3. Go to repository Settings > Pages
+4. Select the branch you want to deploy (usually `main`)
+5. Click Save, and your site will be published at `https://yourusername.github.io/repository-name/`
+
+#### For ASBPA Hosting:
+
+1. Connect to your web hosting using FTP or the provided file manager
+2. Create a new directory for the app (e.g., `journal` or `app`)
+3. Upload all files from this project to that directory
+4. The app will be accessible at `https://asbpa.org/your-directory-name/`
+
+### Important Files
+
+- `index.html` - Main page with the three main functions
+- `photo-submission.html` - Photo submission form
+- `manifest.json` - Web app manifest for PWA functionality
+- `sw.js` - Service worker for offline capabilities
+- `icons/` directory - Contains all app icons (needs to be created)
+
+## Creating App Icons
+
+Before deployment, you need to create app icons in various sizes as specified in the manifest.json file:
+
+- 72x72
+- 96x96
+- 128x128
+- 144x144
+- 152x152
+- 192x192
+- 384x384
+- 512x512
+You can use the ASBPA logo or a custom Shore & Beach Journal logo as the base for these icons.
+
+## PWA Features
+
+This web app includes Progressive Web App (PWA) features:
+
+- Installable on mobile devices and desktops
+- Works offline using cached resources
+- App-like experience with full-screen mode
+- Custom icons and splash screens
+
+## Customization
+
+- To change the recipient email address, modify the `recipient` parameter in the `requestGPT` calls in both `index.html` and `photo-submission.html`
+- To update the journal access URL, modify the `journalUrl` variable in `index.html`
+- To change colors, modify the CSS variables in the `:root` selector in both HTML files
+
+## License
+
+This app is proprietary and owned by the American Shore & Beach Preservation Association.
